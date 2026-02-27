@@ -32,7 +32,7 @@
 
 ###
 
-<p align="left">I'm Vedant More from Maharashtra, India<br><br>- 🔭 I’m BCA Student <br>- 📚 I'm currently learning AI/ML, TensorFlow, PyTorch, OpenCV, Computer Vision, Deep Learning, NLP<br>- ⚡ In my free time I prefer to document my journey of learning AI/ML and Career in the form of Blogs and Articles</p>
+<p align="left">I'm Vedant More from Maharashtra, India<br><br>- 🔭 I’m BCA Student <br>- 📚 I'm currently learning AI/ML, OpenCV, Computer Vision<br>- ⚡ In my free time I prefer to document my journey of learning AI/ML and Career in the form of Blogs and Articles</p>
 
 ###
 
