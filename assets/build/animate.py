@@ -121,10 +121,20 @@ def main():
             ys = [seq[p, i, 1] for p in range(5)]
             xvals = [xs[0], xs[0], xs[1], xs[1], xs[2], xs[2], xs[3], xs[3], xs[4]]
             yvals = [ys[0], ys[0], ys[1], ys[1], ys[2], ys[2], ys[3], ys[3], ys[4]]
-            props = ";".join(f"--x{k}:{v:.0f}px" for k, v in enumerate(xvals))
-            props += ";" + ";".join(f"--y{k}:{v:.0f}px" for k, v in enumerate(yvals))
+            x0v, y0v = xvals[0], yvals[0]
+            # store as deltas from the base cx/cy and animate transform (compositor-
+            # only) instead of cx/cy (layout-triggering) -- the single biggest FPS
+            # cost across 900 simultaneously-animating dots
+            props = ";".join(
+                f"--dx{k}:{v - x0v:.0f}px" for k, v in enumerate(xvals) if k > 0
+            )
+            props += ";" + ";".join(
+                f"--dy{k}:{v - y0v:.0f}px" for k, v in enumerate(yvals) if k > 0
+            )
             props += (f";--c1:{colors[1, i]};--c2:{colors[2, i]};--c3:{colors[3, i]}")
-            trav_svgs.append(f'<circle class="trav" style="{props}"/>')
+            trav_svgs.append(
+                f'<circle class="trav" cx="{x0v:.0f}" cy="{y0v:.0f}" style="{props}"/>'
+            )
         traveler_layer = f'<g id="travelers">{"".join(trav_svgs)}</g>'
 
         t0, t1, t2, t3, t4, t5, t6, t7, t8 = pct(
@@ -177,15 +187,15 @@ def main():
   {t8:.3f}% {{ fill: {cfg["traveler_color"]}; }}
 }}
 @keyframes travelPos {{
-  {t0:.3f}% {{ cx: var(--x0); cy: var(--y0); }}
-  {t1:.3f}% {{ cx: var(--x1); cy: var(--y1); }}
-  {t2:.3f}% {{ cx: var(--x2); cy: var(--y2); }}
-  {t3:.3f}% {{ cx: var(--x3); cy: var(--y3); }}
-  {t4:.3f}% {{ cx: var(--x4); cy: var(--y4); }}
-  {t5:.3f}% {{ cx: var(--x5); cy: var(--y5); }}
-  {t6:.3f}% {{ cx: var(--x6); cy: var(--y6); }}
-  {t7:.3f}% {{ cx: var(--x7); cy: var(--y7); }}
-  {t8:.3f}%, 100% {{ cx: var(--x8); cy: var(--y8); }}
+  {t0:.3f}% {{ transform: translate(0,0); }}
+  {t1:.3f}% {{ transform: translate(var(--dx1),var(--dy1)); }}
+  {t2:.3f}% {{ transform: translate(var(--dx2),var(--dy2)); }}
+  {t3:.3f}% {{ transform: translate(var(--dx3),var(--dy3)); }}
+  {t4:.3f}% {{ transform: translate(var(--dx4),var(--dy4)); }}
+  {t5:.3f}% {{ transform: translate(var(--dx5),var(--dy5)); }}
+  {t6:.3f}% {{ transform: translate(var(--dx6),var(--dy6)); }}
+  {t7:.3f}% {{ transform: translate(var(--dx7),var(--dy7)); }}
+  {t8:.3f}%, 100% {{ transform: translate(var(--dx8),var(--dy8)); }}
 }}
 @keyframes travelOpacity {{
   {trav_opacity_pct[0]:.3f}% {{ opacity: 0; }}
