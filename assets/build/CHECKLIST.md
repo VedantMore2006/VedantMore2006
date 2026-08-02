@@ -7,17 +7,13 @@ The banner (`assets/build/svg/dark.svg`, `light.svg`), the workflow
 (`.github/workflows/snake.yml`), and the new `README.md` all need to be committed and
 pushed so `raw.githubusercontent.com` links resolve.
 
-## 2. Self-host the stats cards (~20 min)
-The README currently points at the **public** github-readme-stats instance, which
-rate-limits constantly ("API rate limit exceeded"). To fix:
-1. GitHub → Settings → Developer settings → Tokens (classic) → Generate new (classic),
-   scope `repo`, no expiration. Copy it immediately, never paste it anywhere public.
-2. Fork `github.com/anuraghazra/github-readme-stats`.
-3. vercel.com → sign up with GitHub → Hobby (free) → Add New Project → import your fork.
-4. Environment Variables → add `PAT_1` = your token → Deploy.
-5. Copy your instance URL (`your-instance.vercel.app`).
-6. In `README.md`, replace `github-readme-stats.vercel.app` with your instance URL in
-   both stats-card `<img src>` lines.
+## 2. Stats cards — dropped
+The public `github-readme-stats.vercel.app` instance is permanently paused
+(`DEPLOYMENT_PAUSED` — the maintainer shut down the shared deployment), and
+`streak-stats.demolab.com` runs on a flaky free Heroku dyno that crashes under load.
+Rather than depend on either, the stats/streak section has been removed from the
+README entirely. The Contribution Snake (self-generated via your own Actions run,
+no third-party server involved) replaces it.
 
 ## 3. Turn on the contribution snake
 1. This repo's Settings (not your account settings) → Actions → General → scroll to
