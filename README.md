@@ -8,7 +8,7 @@
 
 ###
 
-<h3 align="left">🐍 Contribution Snake</h3>
+<h3 align="left">Contribution Snake</h3>
 
 <div align="center">
 <picture>
